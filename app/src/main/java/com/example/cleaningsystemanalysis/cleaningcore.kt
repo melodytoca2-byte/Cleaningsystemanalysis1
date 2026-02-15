@@ -1,50 +1,27 @@
 package com.example.cleaningsystemanalysis
 
 class CleaningCore {
+    // Список зон теперь хранится здесь, а не в Activity
+    private val zones = mutableListOf(
+        WorkZone("101", 15.0, 1.0, priority = 5),
+        WorkZone("102", 20.0, 1.2, priority = 3),
+        WorkZone("103", 10.0, 1.5, priority = 1),
+        WorkZone("104", 30.0, 1.1, priority = 4)
+    )
 
-    fun completeZone(employee: Employee, zone: WorkZone, client: Client, actualTimeSec: Long) {
-        val minExpectedTime = zone.area * 5
+    fun getAvailableZones(): List<WorkZone> = zones
 
-        if (actualTimeSec < minExpectedTime) {
-            zone.status = "BLOCKED"
-            employee.workHistory.add(WorkRecord(zone.id, zone.area, 0.0, isVerified = false))
-            return
-        }
+    fun calculateTimeForZone(id: String): Int {
+        // Здесь потом сделаешь реальный таймер, пока просто логика
+        return (100..600).random()
+    }
 
-        val payment = zone.area * zone.difficulty * client.baseRate
-        employee.dailyBalance += payment
-
-        val record = WorkRecord(
-            zoneId = zone.id,
-            area = zone.area,
-            moneyEarned = payment
-        )
-        employee.workHistory.add(record)
-
+    fun completeZone(worker: Employee, zone: WorkZone, client: Client, timeSec: Int) {
         zone.status = "DONE"
-        zone.workerId = employee.id
+        worker.dailyBalance += (zone.area * client.baseRate).toInt()
     }
 
-    fun transferZone(zone: WorkZone, oldWorker: Employee, newWorker: Employee) {
-        zone.workerId = newWorker.id
-        zone.status = "BUSY"
-    }
-
-    fun getSmartRoute(zones: List<WorkZone>): List<WorkZone> {
-        return zones.filter { it.status == "FREE" }
-            .sortedByDescending { it.priority }
-    }
-
-    fun generateFinalReport(employee: Employee): String {
-        val sb = StringBuilder()
-        sb.append("ОТЧЕТ ПО СМЕНЕ: ${employee.fullName}\n")
-        sb.append("--------------------------------\n")
-        employee.workHistory.forEach {
-            val statusIcon = if (it.isVerified) "✅" else "❌"
-            sb.append("Зона: ${it.zoneId} | ${it.moneyEarned} тг | $statusIcon\n")
-        }
-        sb.append("--------------------------------\n")
-        sb.append("ИТОГО К ВЫПЛАТЕ: ${employee.dailyBalance} тг")
-        return sb.toString()
+    fun generateFinalReport(worker: Employee): String {
+        return "Отчет для: ${worker.fullName}\nЗаработано: ${worker.dailyBalance} тг"
     }
 }
