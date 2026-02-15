@@ -1,21 +1,15 @@
-
 package com.example.cleaningsystemanalysis
 
 class CleaningCore {
 
-
     fun completeZone(employee: Employee, zone: WorkZone, client: Client, actualTimeSec: Long) {
-
         val minExpectedTime = zone.area * 5
 
         if (actualTimeSec < minExpectedTime) {
             zone.status = "BLOCKED"
-
             employee.workHistory.add(WorkRecord(zone.id, zone.area, 0.0, isVerified = false))
-            println("ALERT: Обнаружена ошибка в зоне ${zone.id}. Заблокировано.")
             return
         }
-
 
         val payment = zone.area * zone.difficulty * client.baseRate
         employee.dailyBalance += payment
@@ -29,16 +23,12 @@ class CleaningCore {
 
         zone.status = "DONE"
         zone.workerId = employee.id
-        println("Система: Сотруднику ${employee.fullName} начислено $payment за зону ${zone.id}")
     }
-
 
     fun transferZone(zone: WorkZone, oldWorker: Employee, newWorker: Employee) {
         zone.workerId = newWorker.id
         zone.status = "BUSY"
-        println("Смена зон: Зона ${zone.id} передана ${newWorker.fullName}")
     }
-
 
     fun getSmartRoute(zones: List<WorkZone>): List<WorkZone> {
         return zones.filter { it.status == "FREE" }

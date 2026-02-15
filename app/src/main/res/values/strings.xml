@@ -1,3 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cleaning system analysis</string>
+    <string name="app_name">Cleaning System Analysis</string>
+    <string name="loading_profile">Загрузка профиля…</string>
+    <string name="default_balance">0.00 тг</string>
+    <string name="finish_shift">СДАТЬ СМЕНУ / ПОЛУЧИТЬ БЛАНК</string>
+    <string name="report_title">Бланк выполненных работ</string>
+    <string name="worker_label">Сотрудник: %1$s | ★ %2$.1f</string>
 </resources>
