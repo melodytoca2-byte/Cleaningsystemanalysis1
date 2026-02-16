@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cleaning System Analysis</string>
-    <string name="loading_profile">Загрузка профиля…</string>
-    <string name="default_balance">0.00 тг</string>
-    <string name="finish_shift">СДАТЬ СМЕНУ / ПОЛУЧИТЬ БЛАНК</string>
-    <string name="report_title">Бланк выполненных работ</string>
-    <string name="worker_label">Сотрудник: %1$s | ★ %2$.1f</string>
-    <string name="zones_list_description">Список зон</string>
+    <string name="login_title">ВХОД В СИСТЕМУ</string>
+    <string name="btn_login">ВОЙТИ</string>
+    <string name="select_user_desc">Выбор пользователя из списка</string>
+    <string name="history_desc">История действий</string>
 </resources>
